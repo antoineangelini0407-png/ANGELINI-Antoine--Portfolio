@@ -87,14 +87,18 @@
     .modal-section p { font-size: 14px; color: var(--text2); line-height: 1.75; }
     .modal-result { background: rgba(148,144,232,0.08); border: 1px solid rgba(148,144,232,0.2); border-radius: 8px; padding: 1rem 1.25rem; }
     .modal-result p { color: var(--text); }
-    .modal-screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 1rem; }
+    .modal-screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 1rem; width: 100%; }
     .modal-screenshots a { display: block; cursor: zoom-in; }
     .modal-screenshots img { width: 100%; border-radius: 6px; border: 1px solid var(--border); display: block; transition: opacity 0.2s; }
     .modal-screenshots a:hover img { opacity: 0.85; }
     .modal-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 1rem; }
-    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 500; align-items: center; justify-content: center; cursor: zoom-out; }
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 500; align-items: center; justify-content: center; }
     .lightbox.open { display: flex; }
-    .lightbox img { max-width: 92vw; max-height: 90vh; border-radius: 8px; object-fit: contain; pointer-events: none; }
+    .lightbox-inner { position: relative; max-width: 70vw; max-height: 75vh; }
+    .lightbox-inner img { max-width: 100%; max-height: 75vh; border-radius: 8px; object-fit: contain; display: block; }
+    .lightbox-close { position: absolute; top: -14px; right: -14px; width: 28px; height: 28px; background: var(--bg3); border: 1px solid var(--border); border-radius: 50%; color: var(--text); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 501; }
+    .lightbox-close:hover { background: var(--violet-dark); }
+    .lightbox-backdrop { position: absolute; inset: 0; }
 
     footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text3); font-size: 13px; max-width: 800px; margin: 0 auto; }
     footer a { color: var(--violet); text-decoration: none; }
@@ -355,8 +359,12 @@
   });
 </script>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="" alt="" />
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
 </div>
 
 </body>
